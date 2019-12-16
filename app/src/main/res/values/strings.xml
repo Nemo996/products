@@ -4,6 +4,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
     <string name="username">Username</string>
     <string name="password">Password</string>
+
+    <string name="saved">Saved</string>
+    <string name="products">Products</string>
+    <string name="profile">Profile</string>
+    <string name="login">LogIn</string>
+    <string name="type_your_review">Type your review...</string>
 </resources>

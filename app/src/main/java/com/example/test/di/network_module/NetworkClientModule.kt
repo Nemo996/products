@@ -14,11 +14,11 @@ val remoteDataSourceModule = module {
     // provided web components
     single { createOkHttpClient() }
     // Fill property
-    single { createWebService<ApiInterface>(get(), getProperty(SERVER_URL)) }
+    single { createWebService<ApiInterface>(get(), SERVER_URL) }
 }
 
 object Properties {
-    const val SERVER_URL = "http://smktesting.herokuapp.com"
+    const val SERVER_URL = "https://smktesting.herokuapp.com"
 }
 
 fun createOkHttpClient(): OkHttpClient {

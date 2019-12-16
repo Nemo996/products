@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/item_pudding"
+        xmlns:tools="http://schemas.android.com/tools">
     <ImageView
             android:id="@+id/product_image"
             android:layout_width="0dp"
-               android:layout_height="0dp"
+               android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
                android:src="@drawable/ic_camera_icon_placeholder"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
@@ -14,5 +17,60 @@
                app:layout_constraintTop_toTopOf="parent"/>
 
 
+    <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/top_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/product_image"
+            app:layout_constraintVertical_bias="0" />
+    <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bottom_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/product_image"
+            app:layout_constraintVertical_bias="1" />
 
+    <TextView
+            android:id="@+id/item_text_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/heart_margin"
+            android:lines="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/primary_text_size"
+            app:layout_constraintEnd_toStartOf="@+id/item_check_save"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Product1" />
+
+    <TextView
+            android:id="@+id/item_text_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/heart_margin"
+            android:lines="1"
+            tools:text="Product1 description"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    <CheckBox
+            android:id="@+id/item_check_save"
+            android:layout_width="@dimen/heart_size"
+            android:layout_height="@dimen/heart_size"
+            android:layout_margin="@dimen/heart_margin"
+            android:background="@drawable/checkbox_heart"
+            android:button="@null"
+            android:checked="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

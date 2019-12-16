@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/item_pudding"
+        android:paddingStart="@dimen/item_pudding"
+        android:paddingEnd="@dimen/item_pudding"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/product_image_frag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera_icon_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <CheckBox
+                android:id="@+id/product_check_save"
+                android:layout_width="@dimen/heart_size"
+                android:layout_height="@dimen/heart_size"
+                android:layout_margin="@dimen/heart_margin"
+                android:background="@drawable/checkbox_heart"
+                android:button="@null"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="@+id/product_image_frag"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        <TextView
+                android:id="@+id/product_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/primary_text_size"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                tools:text="Product 1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_image_frag" />
+
+        <TextView
+                android:id="@+id/product_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/secondary_text_size"
+                tools:text="[dplfp[dl[pofkltrkt0rjg0irktoigkrot0gikr0otkgrokg0rtk0gorkt0gokr0otkg0rtkg0rkt0gkr0tgk0rt9kg0rotkg0rtkg0rtg0o"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_description">
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/type_your_review"
+                    android:textSize="@dimen/secondary_text_size" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</ScrollView>

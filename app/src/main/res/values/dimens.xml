@@ -2,4 +2,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="heart_size">25dp</dimen>
+    <dimen name="heart_margin">8dp</dimen>
+
+    <dimen name="product_item_height">300dp</dimen>
+
+    <dimen name="primary_text_size">18sp</dimen>
+    <dimen name="secondary_text_size">16sp</dimen>
+    <dimen name="item_pudding">8dp</dimen>
 </resources>
