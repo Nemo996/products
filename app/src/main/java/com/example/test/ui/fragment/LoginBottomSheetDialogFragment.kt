@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.test.R
+import com.example.test.ui.MainActivity
+import com.example.test.view_model.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
+import kotlinx.android.synthetic.main.fragment_login.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
-
+   private val viewModel : MyViewModel by sharedViewModel()
 
 
     override fun onCreateView(
@@ -36,5 +39,16 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        login_fragment_back.setOnClickListener {
+            this.dismiss()
+        }
+        login_button.setOnClickListener {
+            viewModel.login()
+        }
+        register_button.setOnClickListener {
+            viewModel.register()
+        }
+
     }
 }
