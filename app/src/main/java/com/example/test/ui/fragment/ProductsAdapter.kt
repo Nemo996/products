@@ -16,8 +16,10 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
 
     inner class ViewHolder(val item:View):RecyclerView.ViewHolder(item)
 
+    var onClick: ((product:Product,position:Int)->Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_product,null,true).apply {
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_product,parent,false).apply {
 
           //layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT).apply {
 
@@ -36,6 +38,9 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
             Glide.with(holder.item.context)
                 .load(STATIC_REMOTE_URL+productList[position].img)
                 .into(product_image)
+            setOnClickListener {
+                onClick?.invoke(productList[position],position)
+            }
         }
     }
 

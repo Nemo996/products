@@ -29,7 +29,11 @@ class ProductsFragment(private val isSaved: Boolean = false): BaseFragment() {
         viewMogel.products.observe(this, Observer {
             product_list.apply {
                 layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.VERTICAL,false)
-                adapter = ProductsAdapter(it)
+                adapter = ProductsAdapter(it).apply {
+                    onClick = {product,position->
+
+                    }
+                }
             }
         })
 
