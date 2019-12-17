@@ -12,6 +12,9 @@ class DataManager(val apiClient:ApiInterface, dao:DaoInterface) {
 
 
 fun getProducts(): Single<MutableList<Product>>{
+
+
+
     return apiClient.products()
 }
 

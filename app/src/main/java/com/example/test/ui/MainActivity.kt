@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
 
     fun showBottomSheetLogin() {
         val loginDialog: LoginBottomSheetDialogFragment =
-            LoginBottomSheetDialogFragment()
+            LoginBottomSheetDialogFragment().apply {
+            }
         loginDialog.show(
             supportFragmentManager,
             null

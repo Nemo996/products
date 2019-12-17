@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -78,10 +79,10 @@ dependencies {
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
     implementation "androidx.room:room-runtime:2.2.2"
-    annotationProcessor "androidx.room:room-compiler:2.2.2" // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:2.2.2" // For Kotlin use kapt instead of annotationProcessor
     implementation "androidx.room:room-rxjava2:2.2.2"
 
 }

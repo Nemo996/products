@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.test.R
 import com.example.test.data.product_list.Product
 import com.example.test.utils.STATIC_REMOTE_URL
@@ -21,9 +22,6 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_product,parent,false).apply {
 
-          //layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT).apply {
-
-        //  }
         })
     }
 
@@ -33,11 +31,16 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.item.apply {
+
             item_text_title.text = productList[position].title
+
             item_text_description.text = productList[position].text
+
             Glide.with(holder.item.context)
                 .load(STATIC_REMOTE_URL+productList[position].img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(product_image)
+
             setOnClickListener {
                 onClick?.invoke(productList[position],position)
             }
