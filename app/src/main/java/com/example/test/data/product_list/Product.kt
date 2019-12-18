@@ -9,5 +9,7 @@ data class Product(
     val id: Int,
     val img: String,
     val text: String,
-    val title: String
+    val title: String,
+    var save:Boolean = false
+
 )

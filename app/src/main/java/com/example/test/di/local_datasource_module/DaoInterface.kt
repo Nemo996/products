@@ -1,6 +1,7 @@
 package com.example.test.di.local_datasource_module
 
 import androidx.room.*
+import com.example.test.data.UserProfile
 import com.example.test.data.product_list.Product
 import io.reactivex.Single
 
@@ -15,4 +16,20 @@ interface DaoInterface {
 
     @Delete
     fun deteteProduct(product: Product)
+
+    @Query("SELECT * FROM users")
+    fun getUser(): Single<UserProfile>
+
+    @Query("SELECT * FROM users WHERE username=:username ")
+    fun getUserById(username:String): Single<UserProfile>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addUser(user: UserProfile)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateUser(user: UserProfile)
+
+    @Delete
+    fun deteteUser(User: UserProfile)
+
 }

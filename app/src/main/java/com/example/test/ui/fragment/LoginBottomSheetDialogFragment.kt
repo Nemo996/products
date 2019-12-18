@@ -1,6 +1,5 @@
 package com.example.test.ui.fragment
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,7 +32,7 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
 
         val maxHeight = (height * 0.88).toInt()
 
-        viewModel.loginStatus.observe(this, Observer {
+        viewModel.userIsLoggedIn.observe(this, Observer {
             Log.d("Mylog","success $it")
         })
 

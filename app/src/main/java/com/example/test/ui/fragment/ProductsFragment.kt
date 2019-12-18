@@ -35,6 +35,13 @@ class ProductsFragment(private val isSaved: Boolean = false): BaseFragment() {
                     onClick = {product,position->
                         this@ProductsFragment.onClick?.invoke(product)
                     }
+                    onCheck = {product, isCheced ->
+                        if (isCheced){
+                            viewMogel.saveIt.add(product.id)
+                        }else{
+                            viewMogel.saveIt.remove(product.id)
+                        }
+                    }
                 }
             }
         })

@@ -32,6 +32,10 @@ class ProductFragment(private val product: Product):BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (viewMogel.saveIt.contains(product.id)){
+            product_check_save.isChecked = true
+        }
         context?.let { it1 ->
             Glide.with(it1)
                 .load(STATIC_REMOTE_URL +product.img)
@@ -56,6 +60,12 @@ class ProductFragment(private val product: Product):BaseFragment() {
 
 
     override fun onDestroy() {
+        if (product_check_save.isChecked){
+            viewMogel.saveIt.add(product.id)
+        }else{
+            viewMogel.saveIt.remove(product.id)
+        }
+
         viewMogel.review.postValue(null)
         super.onDestroy()
     }

@@ -155,7 +155,7 @@
         <androidx.constraintlayout.widget.Group
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/group"
+                android:id="@+id/group_for_registered"
                 app:constraint_referenced_ids="textInputLayout3,my_product_rating,product_add_review_button"/>
 
 

@@ -18,7 +18,7 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
     inner class ViewHolder(val item:View):RecyclerView.ViewHolder(item)
 
     var onClick: ((product:Product,position:Int)->Unit)? = null
-
+    var onCheck: ((product:Product,isCheced:Boolean)->Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view_product,parent,false).apply {
 
@@ -40,6 +40,10 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
                 .load(STATIC_REMOTE_URL+productList[position].img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(product_image)
+
+            item_check_save.setOnCheckedChangeListener { _, isChecked ->
+                onCheck?.invoke(productList[position],isChecked)
+            }
 
             setOnClickListener {
                 onClick?.invoke(productList[position],position)

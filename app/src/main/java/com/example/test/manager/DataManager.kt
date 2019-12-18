@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.example.test.data.LoginResponce
 import com.example.test.data.ReviewModel
 import com.example.test.data.ReviewResponse
+import com.example.test.data.UserProfile
 import com.example.test.data.product_list.Product
 import com.example.test.di.local_datasource_module.DaoInterface
 import com.example.test.di.network_module.ApiInterface
@@ -110,6 +111,15 @@ class DataManager(private val context: Context,private val apiClient:ApiInterfac
             }
         }
         return result
+    }
+
+    fun getUser():Single<UserProfile> = dao.getUser()
+    fun cleanUser(user:UserProfile) = dao.deteteUser(user)
+    fun updateUser(user:UserProfile) = dao.updateUser(user)
+    fun getuserByUsername(username:String) = dao.getUserById(username)
+    fun saveUser(user: UserProfile) = dao.addUser(user)
+    fun deleteLocal(product: Product) {
+        dao.deteteProduct(product)
     }
 
 }
