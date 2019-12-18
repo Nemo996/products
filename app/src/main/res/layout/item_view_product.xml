@@ -71,7 +71,7 @@
             android:layout_margin="@dimen/heart_margin"
             android:background="@drawable/checkbox_heart"
             android:button="@null"
-            android:checked="true"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

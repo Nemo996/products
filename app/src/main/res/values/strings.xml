@@ -14,4 +14,11 @@
     <string name="login">LogIn</string>
     <string name="type_your_review">Type your review...</string>
     <string name="register">Register</string>
+    <string name="error_field_is_ampty">fill the field</string>
+    <string name="error_too_short_word">too short word</string>
+    <string name="error_long_short_word">too long word</string>
+    <string name="error_invalid_input">invalid input</string>
+    <string name="repeat_password">Repeat_password</string>
+    <string name="error_passwords_is_not_match">passwords do not match</string>
+    <string name="add_review">Add review</string>
 </resources>

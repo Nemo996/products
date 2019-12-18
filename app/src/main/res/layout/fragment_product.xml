@@ -12,15 +12,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+
+        <TextView
+                android:id="@+id/product_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/primary_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/login_fragment_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/login_fragment_back"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Product 1" />
+        <ImageView
+                android:id="@+id/login_fragment_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_arrow_back"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+                android:id="@+id/product_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                app:layout_constraintBottom_toBottomOf="@+id/login_fragment_back"
+                app:layout_constraintEnd_toEndOf="@+id/product_title"
+                app:layout_constraintTop_toTopOf="@+id/login_fragment_back" />
+
+
         <ImageView
                 android:id="@+id/product_image_frag"
                 android:layout_width="0dp"
+                android:layout_marginTop="@dimen/heart_margin"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera_icon_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/product_title" />
 
         <CheckBox
                 android:id="@+id/product_check_save"
@@ -29,32 +68,24 @@
                 android:layout_margin="@dimen/heart_margin"
                 android:background="@drawable/checkbox_heart"
                 android:button="@null"
-                android:checked="true"
                 app:layout_constraintBottom_toBottomOf="@+id/product_image_frag"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
-        <TextView
-                android:id="@+id/product_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/primary_text_size"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                tools:text="Product 1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_image_frag" />
+
 
         <TextView
                 android:id="@+id/product_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/heart_margin"
                 android:textSize="@dimen/secondary_text_size"
-                tools:text="[dplfp[dl[pofkltrkt0rjg0irktoigkrot0gikr0otkgrokg0rtk0gorkt0gokr0otkg0rtkg0rkt0gkr0tgk0rt9kg0rotkg0rtkg0rtg0o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_title" />
+                app:layout_constraintTop_toBottomOf="@+id/product_image_frag"
+                tools:text="[dplfp[dl[pofkltrkt0rjg0irktoigkrot0gikr0otkgrokg0rtk0gorkt0gokr0otkg0rtkg0rkt0gkr0tgk0rt9kg0rotkg0rtkg0rtg0o" />
+
+
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
@@ -66,24 +97,69 @@
                 app:layout_constraintTop_toBottomOf="@+id/product_description">
 
             <EditText
+                    android:id="@+id/my_comment"
                     android:layout_width="match_parent"
+                    android:padding="3dp"
+                    android:background="@drawable/custom_edittext"
                     android:layout_height="wrap_content"
                     android:hint="@string/type_your_review"
                     android:textSize="@dimen/secondary_text_size" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
+        <RatingBar
+                android:id="@+id/my_product_rating"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:isIndicator="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+        <TextView
+                android:id="@+id/product_add_review_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/custom_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/add_review"
+                android:textSize="@dimen/primary_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/my_product_rating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/my_product_rating"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+        <View
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                app:layout_constraintTop_toBottomOf="@+id/product_add_review_button"
+                tools:layout_editor_absoluteX="28dp" />
+
         <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+                app:layout_constraintTop_toBottomOf="@+id/view" />
 
+        <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/group"
+                app:constraint_referenced_ids="textInputLayout3,my_product_rating,product_add_review_button"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 
