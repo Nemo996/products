@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout  xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
+        android:id="@+id/swipe_to_load_product"
         android:layout_width="match_parent"
         android:paddingTop="@dimen/item_pudding"
         android:paddingStart="@dimen/item_pudding"
         android:paddingEnd="@dimen/item_pudding"
         android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
 
@@ -86,10 +90,22 @@
                 tools:text="[dplfp[dl[pofkltrkt0rjg0irktoigkrot0gikr0otkgrokg0rtk0gorkt0gokr0otkg0rtkg0rkt0gkr0tgk0rt9kg0rotkg0rtkg0rtg0o" />
 
 
+        <TextView
+                android:id="@+id/product_no_internet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/no_internet_connection"
+                android:layout_marginTop="@dimen/heart_margin"
+                android:visibility="gone"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_description" />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
                 android:layout_width="0dp"
+                android:layout_marginTop="@dimen/heart_margin"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +177,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-
-</androidx.core.widget.NestedScrollView>

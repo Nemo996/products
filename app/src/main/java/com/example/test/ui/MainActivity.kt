@@ -117,14 +117,7 @@ class MainActivity : AppCompatActivity()  {
         val progressBar = AlertDialog.Builder(this).setView(ProgressBar(this)
         ).create()
 
-        viewModel.showPrograss.observe(this, Observer {
 
-            if (it){
-                progressBar.show()
-            }else{
-                progressBar.dismiss()
-            }
-        })
 
         navView.selectedItemId = R.id.navigation_products
     }
@@ -150,16 +143,6 @@ class MainActivity : AppCompatActivity()  {
             supportFragmentManager,
             null
         )
-    }
-
-    override fun onBackPressed() {
-
-        if (supportFragmentManager.fragments.size > 1){
-            supportFragmentManager.popBackStack()
-        }else{
-            super.onBackPressed()
-        }
-
     }
 
 

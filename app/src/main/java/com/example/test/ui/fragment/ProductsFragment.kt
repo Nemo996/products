@@ -29,10 +29,15 @@ class ProductsFragment(private val isSaved: Boolean = false): BaseFragment() {
     }
     var onClick: ((product: Product)->Unit)? = null
 
+    val progressObserver = Observer<Boolean> {
+        pool_to_refresh_products.isRefreshing = it
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewMogel.userIsLoggedIn.observe(this,myObserver)
+        viewMogel.showPrograss.observe(this, progressObserver)
+
         viewMogel.products.observe(this, Observer {
 
             pool_to_refresh_products.isRefreshing = false

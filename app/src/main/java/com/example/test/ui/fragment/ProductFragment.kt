@@ -35,7 +35,34 @@ class ProductFragment(private val product: Product):BaseFragment() {
     var onBack: ((Unit) -> Unit)? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        swipe_to_load_product.setOnRefreshListener {
+            viewMogel.getReview(product.id.toString())
+            swipe_to_load_product.isRefreshing = false
+        }
 
+       viewMogel.showPrograss.observe(this, Observer {
+
+            if (it){
+                swipe_to_load_product.isRefreshing = true
+                this.context?.let { context -> if (isInternetAvailable(context)){
+                    //viewMogel.getReview(product.id.toString())
+                    viewMogel.userIsLoggedIn.value?.let {
+                        if (it){
+                            group_for_registered.visibility = View.VISIBLE
+                            product_no_internet.visibility = View.GONE
+                        }
+                    }
+
+                }else{
+                    group_for_registered.visibility = View.GONE
+                    product_no_internet.visibility = View.VISIBLE
+                }
+                }
+
+            }else{
+                swipe_to_load_product.isRefreshing = false
+            }
+        })
         if (viewMogel.saveIt.contains(product.id)){
             product_check_save.isChecked = true
         }
