@@ -12,9 +12,9 @@ import com.example.test.data.product_list.Product
 import com.example.test.utils.STATIC_REMOTE_URL
 import kotlinx.android.synthetic.main.item_view_product.view.*
 
-class ProductsAdapter(private val productList: MutableList<Product>): RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(var productList: MutableList<Product>): RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
-
+    var loggedIn = false
     inner class ViewHolder(val item:View):RecyclerView.ViewHolder(item)
 
     var onClick: ((product:Product,position:Int)->Unit)? = null
@@ -41,8 +41,19 @@ class ProductsAdapter(private val productList: MutableList<Product>): RecyclerVi
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(product_image)
 
-            item_check_save.setOnCheckedChangeListener { _, isChecked ->
-                onCheck?.invoke(productList[position],isChecked)
+
+            if (loggedIn){
+                if (productList[position].save){
+                    item_check_save.isChecked = true
+                }
+                item_check_save.visibility = View.VISIBLE
+                item_check_save.setOnCheckedChangeListener { _, isChecked ->
+
+                    productList[position].save = true
+                    onCheck?.invoke(productList[position],isChecked)
+                }
+            }else{
+                item_check_save.visibility = View.GONE
             }
 
             setOnClickListener {

@@ -19,6 +19,12 @@ import java.util.regex.Pattern
 class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
    private val viewModel : MyViewModel by sharedViewModel()
 
+    val myObserver = Observer<Boolean> {
+        Log.d("Mylog","success $it")
+        if(it){
+            dismiss()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,9 +38,7 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
 
         val maxHeight = (height * 0.88).toInt()
 
-        viewModel.userIsLoggedIn.observe(this, Observer {
-            Log.d("Mylog","success $it")
-        })
+        viewModel.userIsLoggedIn.observe(this, myObserver)
 
 
         return inflater.inflate(R.layout.fragment_login,null).apply {
@@ -50,6 +54,7 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
         login_fragment_back.setOnClickListener {
             if (textInputLayout3.visibility == View.VISIBLE){
                 textInputLayout3.visibility = View.GONE
+                textInputLayout4.visibility = View.GONE
                 login_button.visibility = View.VISIBLE
             }
             this.dismiss()
@@ -60,11 +65,13 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
             }
         }
         register_button.setOnClickListener {
-            if (validateLogin(login_username) && validateLogin(login_password)){
+            if (validateLogin(login_username) && validateLogin(login_password) ){
                 textInputLayout3.visibility = View.VISIBLE
+                textInputLayout4.visibility = View.VISIBLE
                 login_button.visibility = View.GONE
-                if (login_password.text.toString() == login_repeat_password.text.toString()){
-                    viewModel.register(login_username.text.toString(),login_password.text.toString())
+
+                if (login_password.text.toString() == login_repeat_password.text.toString() && validateLogin(login_name)){
+                    viewModel.register(login_username.text.toString(),login_password.text.toString(),login_name.text.toString())
                 }else{
                     login_repeat_password.error = resources.getString(R.string.error_passwords_is_not_match)
                 }
@@ -90,7 +97,7 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
             textView.error = resources.getString(R.string.error_long_short_word)
             return false
         }
-        if (!patternValidation(textView.text)){
+        if (!patternValidation(textView.text) && textView.id != login_name.id){
             textView.error = resources.getString(R.string.error_invalid_input)
             return false
         }

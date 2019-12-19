@@ -15,7 +15,7 @@ interface DaoInterface {
     fun addProduct(product: Product)
 
     @Delete
-    fun deteteProduct(product: Product)
+    fun deleteProduct(product: Product)
 
     @Query("SELECT * FROM users")
     fun getUser(): Single<UserProfile>

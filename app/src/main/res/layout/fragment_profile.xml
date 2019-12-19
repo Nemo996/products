@@ -41,16 +41,7 @@
             app:layout_constraintStart_toStartOf="@+id/user_image"
             app:layout_constraintTop_toBottomOf="@+id/user_image"
             tools:text="Shimbabumba" />
-    <EditText
-            android:id="@+id/edit_profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="50dp"
-            android:textSize="@dimen/primary_text_size"
-            app:layout_constraintEnd_toEndOf="@+id/user_image"
-            app:layout_constraintStart_toStartOf="@+id/user_image"
-            app:layout_constraintTop_toBottomOf="@+id/user_image"
-            tools:text="Shimbabumba" />
+
 
     <TextView
             android:id="@+id/profile_name"
@@ -62,30 +53,32 @@
             app:layout_constraintStart_toStartOf="@+id/profile_username"
             app:layout_constraintTop_toBottomOf="@+id/profile_username"
             tools:text="John Smith" />
-    <TextView
+
+    <EditText
             android:id="@+id/edit_profile_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:minWidth="50dp"
+            android:background="@drawable/custom_edittext"
             android:textSize="@dimen/secondary_text_size"
-            app:layout_constraintEnd_toEndOf="@+id/edit_profile_username"
-            app:layout_constraintStart_toStartOf="@+id/edit_profile_username"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_username"
-            tools:text="John Smith" />
+            app:layout_constraintEnd_toEndOf="@+id/user_image"
+            app:layout_constraintStart_toStartOf="@+id/user_image"
+            app:layout_constraintTop_toBottomOf="@+id/profile_username"
+            />
 
     <androidx.constraintlayout.widget.Group
-
+            android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/group_edit"
-        app:constraint_referenced_ids="icon_edit,edit_profile_name,edit_profile_username,button_save"
+        app:constraint_referenced_ids="icon_edit,edit_profile_name,button_save"
         />
-    <androidx.constraintlayout.widget.Group android:visibility="gone"
+    <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/group_profile"
-            app:constraint_referenced_ids="profile_name,profile_username,button_edit,button_log_out"
+            app:constraint_referenced_ids="profile_name,button_edit,button_log_out"
             />
 
     <TextView

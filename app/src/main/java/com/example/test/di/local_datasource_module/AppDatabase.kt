@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.test.data.UserProfile
 import com.example.test.data.product_list.Product
 
-@Database(entities = [Product::class, UserProfile::class], version = 1, exportSchema = false)
+@Database(entities = [Product::class, UserProfile::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase(){
     abstract val userDao: DaoInterface
 }
