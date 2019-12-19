@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.example.test.R
 import com.example.test.data.product_list.Product
 import com.example.test.utils.STATIC_REMOTE_URL
@@ -38,6 +39,7 @@ class ProductsAdapter(var productList: MutableList<Product>): RecyclerView.Adapt
 
             Glide.with(holder.item.context)
                 .load(STATIC_REMOTE_URL+productList[position].img)
+                .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(product_image)
 

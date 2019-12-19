@@ -1,5 +1,6 @@
 package com.example.test.ui.fragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +25,16 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
         if(it){
             dismiss()
         }
+    }
+    var onDismiss: ((Unit) -> Unit)? = null
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        onDismiss?.invoke(Unit)
+    }
+    override fun onDismiss(dialog: DialogInterface) {
+
+        super.onDismiss(dialog)
+
     }
 
     override fun onCreateView(

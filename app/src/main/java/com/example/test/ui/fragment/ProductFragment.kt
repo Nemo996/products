@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.example.test.R
 import com.example.test.base.BaseFragment
 import com.example.test.data.product_list.Product
@@ -51,6 +52,7 @@ class ProductFragment(private val product: Product):BaseFragment() {
         context?.let { it1 ->
             Glide.with(it1)
                 .load(STATIC_REMOTE_URL +product.img)
+                .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(product_image_frag)
         }

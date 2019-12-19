@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.example.test.data.UserProfile
 import com.example.test.utils.USER_ID
 import com.example.test.view_model.MyViewModel
@@ -58,6 +59,7 @@ class ProfileFragment:BaseFragment() {
                 this.context?.let {context ->
                     Glide.with(context)
                         .load(Uri.parse(it.imageUri))
+                        .transition(withCrossFade())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(user_image)
                 }

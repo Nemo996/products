@@ -60,6 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:minWidth="50dp"
+            android:padding="5dp"
+            android:gravity="center"
             android:background="@drawable/custom_edittext"
             android:textSize="@dimen/secondary_text_size"
             app:layout_constraintEnd_toEndOf="@+id/user_image"

@@ -1,17 +1,10 @@
 package com.example.test.ui
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
-import android.net.ConnectivityManager.NetworkCallback
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +21,7 @@ import com.example.test.utils.USERS_TOKEN_PREFS
 import com.example.test.utils.isInternetAvailable
 import com.example.test.view_model.MyViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_products.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -57,6 +50,7 @@ class MainActivity : AppCompatActivity()  {
                     openProfile()
                 }else{
                     showBottomSheetLogin()
+
                 }
 
                 return@OnNavigationItemSelectedListener true
@@ -68,7 +62,7 @@ class MainActivity : AppCompatActivity()  {
     fun expandProduct(product:Product){
         addFragment(ProductFragment(product).apply {
             onBack = {
-                supportFragmentManager.popBackStack()
+                onBackPressed()
             }
         },"ProductFragment")
     }
@@ -79,7 +73,7 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_products)
+        setContentView(R.layout.activity_main)
         if(!isInternetAvailable(this)){
             Toast.makeText(this,"No Internet Connection. offline mode ON",Toast.LENGTH_LONG).show()
         }
@@ -106,8 +100,9 @@ class MainActivity : AppCompatActivity()  {
             if(it){
                 navView.menu.getItem(1).setIcon(R.drawable.ic_profile)
                 navView.menu.getItem(1).setTitle(R.string.profile)
-
+                navView.menu.getItem(1).isCheckable = true
             }else{
+                navView.menu.getItem(1).isCheckable = false
                 navView.menu.getItem(1).setIcon(R.drawable.ic_login)
                 navView.menu.getItem(1).setTitle(R.string.login)
             }
@@ -138,7 +133,7 @@ class MainActivity : AppCompatActivity()  {
         addFragment(ProfileFragment().apply {
             onLogout = {it->
                 if (it){
-                    supportFragmentManager.popBackStack()
+                   onBackPressed()
                     // nav_view.selectedItemId = R.id.navigation_products
                 }
             }
@@ -146,15 +141,21 @@ class MainActivity : AppCompatActivity()  {
     }
 
     override fun onBackPressed() {
-
+        Log.d("OnBackPressed","loginDialog ${loginDialog}")
             if (loginDialog!=null  ){
+
                 if (loginDialog!!.isVisible){
+                    Log.d("OnBackPressed","loginDialog!!.isVisible ${loginDialog!!.isVisible}")
                     loginDialog!!.onBackPressed()
+
                 }
-            }else if(supportFragmentManager.fragments.size > 2){
-                supportFragmentManager.popBackStack()
+                loginDialog = null
+                nav_view.selectedItemId = R.id.navigation_products
+            }else if(supportFragmentManager.fragments.last() !is ProductsFragment){
+                Log.d("OnBackPressed","not Products")
+                nav_view?.selectedItemId = R.id.navigation_products
             }else{
-                super.onBackPressed()
+                finish()
             }
 
 
@@ -168,12 +169,14 @@ class MainActivity : AppCompatActivity()  {
                 supportFragmentManager.beginTransaction().remove(it).commit()   //avoid overlap
             }
         }
-        supportFragmentManager.beginTransaction().replace(fragment_container.id,fragment,tag).addToBackStack(BACKSTACK).commit()
+        supportFragmentManager.beginTransaction().replace(fragment_container.id,fragment,tag).commit()
     }
 
     private var loginDialog: LoginBottomSheetDialogFragment? = null
     private fun showBottomSheetLogin() {
-        loginDialog = LoginBottomSheetDialogFragment()
+        loginDialog = LoginBottomSheetDialogFragment().apply {
+            onDismiss = {nav_view?.selectedItemId = R.id.navigation_products}
+        }
         loginDialog?.show(
             supportFragmentManager,
             null
