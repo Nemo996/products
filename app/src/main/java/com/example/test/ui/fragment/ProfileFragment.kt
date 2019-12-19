@@ -23,6 +23,9 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class ProfileFragment:BaseFragment() {
+    override fun update() {
+        viewModel.getUser()
+    }
 
     private val viewModel: MyViewModel by sharedViewModel()
     private val RESULT_LOAD_IMAGE = 1

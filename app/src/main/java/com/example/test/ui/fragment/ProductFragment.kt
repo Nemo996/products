@@ -21,6 +21,13 @@ import kotlinx.android.synthetic.main.item_view_product.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class ProductFragment(private val product: Product):BaseFragment() {
+    override fun update() {
+        if(context?.let { it1 -> isInternetAvailable(it1) } == false){
+            group_for_registered?.visibility = View.GONE
+            product_no_internet?.visibility = View.GONE
+        }
+        viewMogel.getReview(product.id.toString())
+    }
 
     private val viewMogel : MyViewModel by sharedViewModel()
     override fun onCreateView(
@@ -28,41 +35,15 @@ class ProductFragment(private val product: Product):BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewMogel.getReview(product.id.toString())
+
         return inflater.inflate(R.layout.fragment_product,null)
     }
-
     var onBack: ((Unit) -> Unit)? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipe_to_load_product.setOnRefreshListener {
-            viewMogel.getReview(product.id.toString())
-            swipe_to_load_product.isRefreshing = false
-        }
+        update()
 
-       viewMogel.showPrograss.observe(this, Observer {
 
-            if (it){
-                swipe_to_load_product.isRefreshing = true
-                this.context?.let { context -> if (isInternetAvailable(context)){
-                    //viewMogel.getReview(product.id.toString())
-                    viewMogel.userIsLoggedIn.value?.let {
-                        if (it){
-                            group_for_registered.visibility = View.VISIBLE
-                            product_no_internet.visibility = View.GONE
-                        }
-                    }
-
-                }else{
-                    group_for_registered.visibility = View.GONE
-                    product_no_internet.visibility = View.VISIBLE
-                }
-                }
-
-            }else{
-                swipe_to_load_product.isRefreshing = false
-            }
-        })
         if (viewMogel.saveIt.contains(product.id)){
             product_check_save.isChecked = true
         }

@@ -15,8 +15,10 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.test.R
+import com.example.test.base.BaseFragment
 import com.example.test.data.product_list.Product
 import com.example.test.ui.fragment.LoginBottomSheetDialogFragment
 import com.example.test.ui.fragment.ProductFragment
@@ -42,12 +44,12 @@ class MainActivity : AppCompatActivity()  {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_products -> {
-                supportFragmentManager.beginTransaction().replace(fragment_container.id,ProductsFragment().apply {
+                addFragment(ProductsFragment().apply {
                     onClick = {product ->
                         Log.d("product","prod $product")
                         expandProduct(product)
                     }
-                }).addToBackStack(BACKSTACK).commit()
+                },"ProductsFragment")
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_login -> {
@@ -64,13 +66,11 @@ class MainActivity : AppCompatActivity()  {
     }
 
     fun expandProduct(product:Product){
-        supportFragmentManager.beginTransaction().replace(this@MainActivity.fragment_container.id,
-            ProductFragment(product).apply {
-                onBack = {
-                    supportFragmentManager.popBackStack()
-                }
+        addFragment(ProductFragment(product).apply {
+            onBack = {
+                supportFragmentManager.popBackStack()
             }
-        ).addToBackStack(BACKSTACK).commit()
+        },"ProductFragment")
     }
 
     private val prodObserver = Observer<MutableList<Product>> {
@@ -82,6 +82,15 @@ class MainActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_products)
         if(!isInternetAvailable(this)){
             Toast.makeText(this,"No Internet Connection. offline mode ON",Toast.LENGTH_LONG).show()
+        }
+        swipe_to_update.setOnRefreshListener {
+            supportFragmentManager.fragments.last()?.let {
+                if(it is BaseFragment){
+                    it.update()
+                }
+
+            }
+            swipe_to_update.isRefreshing = false
         }
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -114,8 +123,10 @@ class MainActivity : AppCompatActivity()  {
                     dialogInterface.dismiss()
                 }).create().show()
         })
-        val progressBar = AlertDialog.Builder(this).setView(ProgressBar(this)
-        ).create()
+
+        viewModel.showPrograss.observe(this, Observer {
+            swipe_to_update.isRefreshing = it
+        })
 
 
 
@@ -124,22 +135,46 @@ class MainActivity : AppCompatActivity()  {
 
 
     private fun openProfile() {
-        supportFragmentManager.beginTransaction().replace(fragment_container.id,ProfileFragment().apply {
+        addFragment(ProfileFragment().apply {
             onLogout = {it->
                 if (it){
                     supportFragmentManager.popBackStack()
-                   // nav_view.selectedItemId = R.id.navigation_products
+                    // nav_view.selectedItemId = R.id.navigation_products
                 }
             }
-        }).addToBackStack(BACKSTACK).commit()
+        },"ProfileFragment")
     }
 
+    override fun onBackPressed() {
 
-    private fun showBottomSheetLogin() {
-        val loginDialog: LoginBottomSheetDialogFragment =
-            LoginBottomSheetDialogFragment().apply {
+            if (loginDialog!=null  ){
+                if (loginDialog!!.isVisible){
+                    loginDialog!!.onBackPressed()
+                }
+            }else if(supportFragmentManager.fragments.size > 2){
+                supportFragmentManager.popBackStack()
+            }else{
+                super.onBackPressed()
             }
-        loginDialog.show(
+
+
+
+    }
+
+    fun addFragment(fragment:Fragment,tag: String){
+        supportFragmentManager.fragments.forEach {
+            Log.d("addFragment","${it.tag} ${fragment.javaClass.simpleName} ${supportFragmentManager.fragments.size}")
+            if (it.tag == fragment.javaClass.simpleName ){
+                supportFragmentManager.beginTransaction().remove(it).commit()   //avoid overlap
+            }
+        }
+        supportFragmentManager.beginTransaction().replace(fragment_container.id,fragment,tag).addToBackStack(BACKSTACK).commit()
+    }
+
+    private var loginDialog: LoginBottomSheetDialogFragment? = null
+    private fun showBottomSheetLogin() {
+        loginDialog = LoginBottomSheetDialogFragment()
+        loginDialog?.show(
             supportFragmentManager,
             null
         )

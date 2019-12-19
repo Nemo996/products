@@ -52,12 +52,8 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         login_fragment_back.setOnClickListener {
-            if (textInputLayout3.visibility == View.VISIBLE){
-                textInputLayout3.visibility = View.GONE
-                textInputLayout4.visibility = View.GONE
-                login_button.visibility = View.VISIBLE
-            }
-            this.dismiss()
+           onBackPressed()
+
         }
         login_button.setOnClickListener {
             if (validateLogin(login_username) && validateLogin(login_password)){
@@ -80,6 +76,16 @@ class LoginBottomSheetDialogFragment: BottomSheetDialogFragment() {
 
         }
 
+    }
+
+    fun onBackPressed(){
+        if (textInputLayout3.visibility == View.VISIBLE){
+            textInputLayout3.visibility = View.GONE
+            textInputLayout4.visibility = View.GONE
+            login_button.visibility = View.VISIBLE
+        }else{
+            this.dismiss()
+        }
     }
 
     fun validateLogin(textView: TextView):Boolean{
